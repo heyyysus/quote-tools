@@ -23,7 +23,7 @@ export interface Driver {
 function App() {
 
   const [agent, setAgent] = React.useState("");
-  const AGENT_LIST = ["Jesus Velarde", "Yasmin Alfaro", "Fernando Salgado", "Samuel Rodriguez"];
+  const AGENT_LIST = ["", "Jesus Velarde", "Yasmin Alfaro", "Fernando Salgado", "Samuel Rodriguez"];
   const [ effective, set_effective ] = React.useState("");
   const [ ni_name, set_ni_name ] = React.useState("");
   const [ ni_addr, set_ni_addr ] = React.useState("");

@@ -1,6 +1,7 @@
 import { Driver, Vehicle } from "../App";
 import React from "react";
 import {ArrayRange} from './FormItems';
+import agency_logo from './cover.png'
 
 export interface QuoteLetterProps {
     agent: string;
@@ -28,8 +29,10 @@ export const QuoteLetter = ({ agent, effective, bi, pd, med, umbi, umpd, vehicle
     const NUM_PAY = (term === "6 Months") ? 5 : 11;
     
     return (
-        <div className="flex flex-col pY-10 px-20 mt-10" ref={ref}>
+        <div className="flex flex-col pY-0 px-20 mt-0" ref={ref}>
+            <div className="font-extrabold flex justify-center "><img src={agency_logo} width="50%"/></div>
             <div className="font-extrabold flex justify-center "><h1>PERSONAL AUTO INSURANCE QUOTE</h1></div>
+            
             <div className="flex flex-row justify-between">
                 
                 <div className="flex flex-col">
@@ -57,6 +60,7 @@ export const QuoteLetter = ({ agent, effective, bi, pd, med, umbi, umpd, vehicle
                     {drivers.map((d,i) => <span key={i}> {i+1}. {d.name}, {d.dob}, {d.marital} </span>)}
                 </div>
                 <div className="flex flex-col p-5">
+                    
                     <h1 className=""><b className="underline">AGENCY:</b></h1>
                     <h2><b>SPEEDY INSURANCE AGENCY, INC.</b></h2>
                     <h2>2995 Van Buren Blvd STE A07 </h2>
