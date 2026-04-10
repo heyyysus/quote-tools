@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useReactToPrint } from "react-to-print";
 
 
-import { FormDropdownMenu, FormDropdownMenuProps, FormInput, FormInputProps } from './components/FormItems';
+import { FormDropdownMenu, FormInput  } from './components/FormItems';
 import { QuoteLetter } from './components/QuoteLetter';
 
 export interface Vehicle {
