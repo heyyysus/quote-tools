@@ -94,7 +94,8 @@ function App() {
           <FormDropdownMenu value={driverMaritalCache} onChange={setDriverMaritalCache} label="Marital Status" values={["Single", "Married"]} />
           <button
             className=" bg-green-600 hover:bg-green-700 text-white text-lg font-bold py-2 px-4 rounded-lg transition cursor-pointer mt-[40px]"
-            onClick={() => { setDrivers(prev => [...prev, { name: driverNameCache, dob: driverDOBCache, marital: driverMaritalCache }]) }}
+            onClick={() => { setDrivers(prev => [...prev, { name: driverNameCache, dob: driverDOBCache, marital: driverMaritalCache }]);
+            setDriverNameCache(""); setDriverDOBCache(""); setDriverMaritalCache("Single"); }}
           >Add</button>
         </div>
 
@@ -107,7 +108,7 @@ function App() {
               
               <button
               className=" bg-red-600 hover:bg-red-700 text-white text-lg font-bold py-2 px-4 rounded-lg transition cursor-pointer mt-[40px]"
-              onClick={() => { }}
+              onClick={() => { setDrivers( prev => prev.slice(0, -1) ) }}
             >Delete</button>
 
         </div>
