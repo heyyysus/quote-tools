@@ -30,7 +30,7 @@ export const QuoteLetter = ({ agent, effective, bi, pd, med, umbi, umpd, vehicle
     
     return (
         <div className="flex flex-col pY-0 px-20 mt-0" ref={ref}>
-            <div className="font-extrabold flex justify-center "><img src={agency_logo} width="50%"/></div>
+            <div className="font-extrabold flex justify-center "><img src={agency_logo} width="50%" alt="Agency Logo"/></div>
             <div className="font-extrabold flex justify-center "><h1>PERSONAL AUTO INSURANCE QUOTE</h1></div>
             
             <div className="flex flex-row justify-between">
