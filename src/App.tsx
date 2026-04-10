@@ -1,5 +1,4 @@
-import React, { useRef, useState } from 'react';
-import logo from './logo.svg';
+import React, { useRef } from 'react';
 import { useReactToPrint } from "react-to-print";
 
 

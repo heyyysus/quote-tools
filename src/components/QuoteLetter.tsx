@@ -1,5 +1,5 @@
 import { Driver, Vehicle } from "../App";
-import React, { useRef } from "react";
+import React from "react";
 import {ArrayRange} from './FormItems';
 
 export interface QuoteLetterProps {
