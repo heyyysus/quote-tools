@@ -22,6 +22,8 @@ export interface Driver {
 
 function App() {
 
+  const [agent, setAgent] = React.useState("");
+  const AGENT_LIST = ["Jesus Velarde", "Yasmin Alfaro", "Fernando Salgado", "Samuel Rodriguez"];
   const [ effective, set_effective ] = React.useState("");
   const [ ni_name, set_ni_name ] = React.useState("");
   const [ ni_addr, set_ni_addr ] = React.useState("");
@@ -74,6 +76,8 @@ function App() {
     <div className="flex flex-row justify-center items-center pb-10">
       <div>
         <div className='min-w-[600px] min-h-[200px] p-10 border border-black mt-10 rounded-lg'>
+          <FormDropdownMenu label="Agent Name" value={agent} onChange={setAgent} values={AGENT_LIST} />
+
           <FormInput label="Effective" type="date" value={effective} onChange={(v) => {set_effective(v)}} />
           <FormInput label="Name" value={ni_name} onChange={set_ni_name} />
           <FormInput label="Address" value={ni_addr} onChange={set_ni_addr} />
@@ -161,7 +165,7 @@ function App() {
 
           <QuoteLetter effective={effective} bi={bi_value} pd={pd_value} med={med_value} umbi={umbi_value} umpd={umpd_value} vehicles={autos} ref={contentRef} 
             ni_name={ni_name} ni_addr={ni_addr} ni_city={ni_city} ni_zip={ni_zip} ni_phone={ni_phone} dp={dp} mp={mp} term={term}
-            drivers={drivers}
+            drivers={drivers} agent={agent}
           /> 
 
       

@@ -3,6 +3,7 @@ import React from "react";
 import {ArrayRange} from './FormItems';
 
 export interface QuoteLetterProps {
+    agent: string;
     effective: string;
     ni_name: string;
     ni_addr: string;
@@ -22,7 +23,7 @@ export interface QuoteLetterProps {
     term: string;
 };
 
-export const QuoteLetter = ({ effective, bi, pd, med, umbi, umpd, vehicles, drivers, ref, ni_name, ni_addr, ni_city, ni_zip, ni_phone, dp, mp, term }: QuoteLetterProps) => {
+export const QuoteLetter = ({ agent, effective, bi, pd, med, umbi, umpd, vehicles, drivers, ref, ni_name, ni_addr, ni_city, ni_zip, ni_phone, dp, mp, term }: QuoteLetterProps) => {
     
     const NUM_PAY = (term === "6 Months") ? 5 : 11;
     
@@ -61,6 +62,8 @@ export const QuoteLetter = ({ effective, bi, pd, med, umbi, umpd, vehicles, driv
                     <h2>2995 Van Buren Blvd STE A07 </h2>
                     <h2>Riverside, CA 92503</h2>
                     <h2>(951) 695-1500 </h2>
+                    <h1 className="mt-5"><b className="underline">AGENT:</b> {agent}</h1>
+
                     <h1 className="mt-5"><b className="underline">TERM: </b>{term}</h1>
                     <h1 className="mt-5"><b className="underline">PAYMENT SCHEDULE:</b></h1>
                     {dp && <h2><b>Initial Payment:</b> ${dp}</h2>}
