@@ -56,7 +56,12 @@ export const QuoteLetter = ({ effective, bi, pd, med, umbi, umpd, vehicles, driv
                     {drivers.map((d,i) => <span key={i}> {i+1}. {d.name}, {d.dob}, {d.marital} </span>)}
                 </div>
                 <div className="flex flex-col p-5">
-                    <h1 className=""><b className="underline ">TERM: </b>{term}</h1>
+                    <h1 className=""><b className="underline">AGENCY:</b></h1>
+                    <h2><b>SPEEDY INSURANCE AGENCY, INC.</b></h2>
+                    <h2>2995 Van Buren Blvd STE A07 </h2>
+                    <h2>Riverside, CA 92503</h2>
+                    <h2>(951) 695-1500 </h2>
+                    <h1 className="mt-5"><b className="underline ">TERM: </b>{term}</h1>
                     <h1 className="mt-5"><b className="underline">PAYMENT SCHEDULE:</b></h1>
                     {dp && <h2><b>Initial Payment:</b> ${dp}</h2>}
                     {dp && ArrayRange(1, NUM_PAY).map((v) => <h2><b>Installment {v+1}:</b> ${mp}</h2>)}
