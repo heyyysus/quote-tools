@@ -2,8 +2,10 @@ import React, { useRef } from 'react';
 import { useReactToPrint } from "react-to-print";
 
 
-import { FormDropdownMenu, FormInput  } from './components/FormItems';
+import { FormDropdownMenu, FormInput, ArrayRange  } from './components/FormItems';
 import { QuoteLetter } from './components/QuoteLetter';
+import CarModels from "./components/car-models.json";
+
 
 export interface Vehicle {
   year: string;
@@ -21,6 +23,8 @@ export interface Driver {
 };
 
 function App() {
+
+  
 
   const [agent, setAgent] = React.useState("");
   const AGENT_LIST = [
@@ -56,6 +60,11 @@ function App() {
   const [ autoYearCache, setAutoYearCache ] = React.useState("");
   const [ autoMakeCache, setAutoMakeCache ] = React.useState("");
   const [ autoModelCache, setAutoModelCache ] = React.useState("");
+
+  const year_values = [...ArrayRange(1981, 2027).reverse().map((y) => y.toString()), "Pre-1981"];
+  const make_values = CarModels.map(m => m.brand);
+  const model_values = CarModels.find((e) => e.brand === autoMakeCache)?.models;
+
   const [ autoCompCache, setAutoCompCache ] = React.useState("NONE");
   const [ autoCollCache, setAutoCollCache ] = React.useState("NONE");
   const [ autos, setAutos ] = React.useState<Vehicle[]>([]);
@@ -129,9 +138,9 @@ function App() {
 
       <div>
         <div className='p-2 border border-black mt-10 ml-10 mb-5 rounded-lg flex flex-col justify-content'>
-          <FormInput label="Year" value={autoYearCache} onChange={setAutoYearCache} />
-          <FormInput label="Make" value={autoMakeCache} onChange={setAutoMakeCache} />
-          <FormInput label="Model" value={autoModelCache} onChange={setAutoModelCache} />
+          <FormDropdownMenu label="Year" value={autoYearCache} values={year_values} onChange={setAutoYearCache} />
+          <FormDropdownMenu label="Make" value={autoMakeCache} values={make_values} onChange={setAutoMakeCache} />
+          <FormDropdownMenu label="Model" value={autoModelCache} values={model_values || []} onChange={setAutoModelCache} />
           <FormDropdownMenu label="Comp" values={DED_VALUES} value={autoCompCache} onChange={setAutoCompCache}  />
           <FormDropdownMenu label="Coll" values={DED_VALUES}  value={autoCollCache} onChange={setAutoCollCache} />
 
