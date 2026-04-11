@@ -61,8 +61,8 @@ function App() {
   const [ autoMakeCache, setAutoMakeCache ] = React.useState("");
   const [ autoModelCache, setAutoModelCache ] = React.useState("");
 
-  const year_values = [...ArrayRange(1981, 2027).reverse().map((y) => y.toString()), "Pre-1981"];
-  const make_values = CarModels.map(m => m.brand);
+  const year_values = ["", ...ArrayRange(1981, 2027).reverse().map((y) => y.toString()), "Pre-1981"];
+  const make_values = ["", ...CarModels.map(m => m.brand)];
   const model_values = CarModels.find((e) => e.brand === autoMakeCache)?.models;
 
   const [ autoCompCache, setAutoCompCache ] = React.useState("NONE");
