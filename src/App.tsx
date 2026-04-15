@@ -2,9 +2,10 @@ import React, { useRef } from 'react';
 import { useReactToPrint } from "react-to-print";
 
 
-import { FormDropdownMenu, FormInput, ArrayRange  } from './components/FormItems';
+import { FormDropdownMenu, FormInput, ArrayRange, FormZipInput  } from './components/FormItems';
 import { QuoteLetter } from './components/QuoteLetter';
 import CarModels from "./components/car-models.json";
+import CityList from "./components/USCities.json";
 
 
 export interface Vehicle {
@@ -77,9 +78,38 @@ function App() {
 
   const DED_VALUES = ["NONE", "250", "500", "750", "1000", "1500", "2000", "2500"];
 
+  const [ city_values, set_city_values ] = React.useState([""]);
+
   const contentRef = useRef<HTMLDivElement>(null);
 
   const HandlePrint = useReactToPrint({ contentRef });
+
+  const HandlePhoneChange = (val: string) => {
+    if(!isNaN(Number(val.replaceAll(/[-()\s]/g, "")))){
+      const digits = val.replaceAll(/[-()\s]/g, "").substring(0,10);
+      
+      const len = digits.length;
+
+      if (len === 0) set_ni_phone(digits);
+      else if (len < 4) set_ni_phone(`(${digits}`);
+      else if (len < 7) set_ni_phone(`(${digits.slice(0, 3)}) ${digits.slice(3)}`);
+      else set_ni_phone(`(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`);
+    }
+  }
+
+  const HandleZipChange = (zip_code: string) => {
+    const zip_code_int = Number(zip_code);
+    if(isNaN(zip_code_int))
+      return;
+    set_ni_zip(zip_code);
+    if(zip_code.length === 5){
+      const city_list: string[] = CityList.filter(v => v.zip_code === zip_code_int).map(v => v.city);
+      set_city_values(city_list);
+      set_ni_city(city_list.length > 0 ? city_list[0] : "");
+    } else {
+      set_city_values([""]);
+    }
+  }
   
   const AddAuto = (auto: Vehicle) => {
     setAutos([...autos, auto]);
@@ -98,9 +128,9 @@ function App() {
           <FormInput label="Effective" type="date" value={effective} onChange={(v) => {set_effective(v)}} />
           <FormInput label="Name" value={ni_name} onChange={set_ni_name} />
           <FormInput label="Address" value={ni_addr} onChange={set_ni_addr} />
-          <FormInput label="City" value={ni_city} onChange={set_ni_city} />
-          <FormInput label="ZIP Code" value={ni_zip} onChange={set_ni_zip} />
-          <FormInput label="Phone Number" value={ni_phone} onChange={set_ni_phone} />
+          <FormZipInput label="ZIP Code" value={ni_zip} onChange={HandleZipChange} />
+          <FormDropdownMenu label="City" value={ni_city} values={city_values} onChange={set_ni_city} />
+          <FormInput label="Phone Number" type='tel' placeholder='(999) 999-9999' value={ni_phone} onChange={HandlePhoneChange} />
 
           <FormDropdownMenu label="BI" value={bi_value} values={BI_VALUES} onChange={set_bi_value} />
           <FormDropdownMenu label="PD" value={pd_value} values={PD_VALUES} onChange={set_pd_value} />

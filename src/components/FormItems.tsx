@@ -70,7 +70,7 @@ export const FormZipInput = ({ label, onChange, value, required }: FormInputProp
           <input
             id="fname"
             type={ "text" }
-            className="text-lg p-[12px] text-black placeholder:text-black outline-2 focus:outline-3 outline-black rounded-md focus:outline-indigo-950"
+            className="text-lg p-[12px] text-black placeholder:text-black border border-black rounded-md focus:outline-indigo-950"
             inputMode="numeric"
             pattern="[0-9]*"
             autoComplete="postal-code"
