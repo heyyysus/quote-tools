@@ -147,7 +147,7 @@ function App() {
     setAutos([...autos, auto]);
   }
 
-  const handleImport = React.useCallback((quote: Quote) => {
+  const handleImport = (quote: Quote) => {
     set_bi_value(quote.bi);
     set_pd_value(quote.pd);
     set_umbi_value(quote.umbi);
@@ -162,7 +162,7 @@ function App() {
 
     set_effective(quote.effectiveDate);
     
-  }, []);
+  };
 
   const [ term, set_term ] = React.useState("6 Months");
   const [ dp, set_dp ] = React.useState("");
