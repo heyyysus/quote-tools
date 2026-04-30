@@ -6,7 +6,37 @@ import { FormDropdownMenu, FormInput, ArrayRange, FormZipInput  } from './compon
 import { QuoteLetter } from './components/QuoteLetter';
 import CarModels from "./components/car-models.json";
 import CityList from "./components/USCities.json";
+import { Quote, useIntegrationFilePicker } from './utility/ParseIntegrationFile';
+import { start } from 'repl';
 
+
+
+export const ImportQuoteSelector = ({onImport}: {onImport: (quote: Quote) => void}) => {
+  const { quote, error, loading, handleFile } = useIntegrationFilePicker();
+
+  React.useEffect(() => {
+    quote && onImport(quote);
+    console.log(quote);
+  }, [quote])
+
+  return (
+    <>
+      <input
+        className="0"
+        type="file"
+        accept=".tt2x"
+        onChange={(e) => handleFile(e.target.files && e.target.files[0])}
+      />
+      {loading && <p>Parsing...</p>}
+      {error && <p>Error: {error}</p>}
+      {quote && (
+        <>
+          <pre>Successfully Imported</pre>
+        </>
+      )}
+    </>
+  );
+}
 
 export interface Vehicle {
   year: string;
@@ -111,9 +141,28 @@ function App() {
       set_city_values([""]);
     }
   }
+
+
   
   const AddAuto = (auto: Vehicle) => {
     setAutos([...autos, auto]);
+  }
+
+  const handleImport = (quote: Quote) => {
+    set_bi_value(quote.bi);
+    set_pd_value(quote.pd);
+    set_umbi_value(quote.umbi);
+    set_umpd_value(quote.umpd);
+    set_ni_name(quote.name);
+    set_ni_addr(quote.address);
+    HandleZipChange(quote.zipCode);
+    HandlePhoneChange(quote.phoneNo.slice(2));
+
+    setDrivers(prev => [...prev, ...quote.additionalDrivers]);
+    setAutos(prev => [...prev, ...quote.autos]);
+
+    set_effective(quote.effectiveDate);
+    
   }
 
   const [ term, set_term ] = React.useState("6 Months");
@@ -123,7 +172,12 @@ function App() {
   return (
     <div className="flex flex-row justify-center items-center pb-10">
       <div>
-        <div className='min-w-[600px] min-h-[200px] p-10 border border-black mt-10 rounded-lg'>
+        <div className='flex flex-col justify-center items-center min-w-[600px] min-h-[200px] p-10 border border-black mt-10 rounded-lg'>
+          
+          <div className="mb-5">
+            <ImportQuoteSelector onImport={ handleImport } />
+          </div>
+
           <FormDropdownMenu label="Agent Name" value={agent} onChange={setAgent} values={AGENT_LIST} />
 
           <FormInput label="Effective" type="date" value={effective} onChange={(v) => {set_effective(v)}} />
