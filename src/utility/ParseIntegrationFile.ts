@@ -187,8 +187,6 @@ export async function parseIntegrationFile(file: File): Promise<Omit<Quote, 'id'
 
   const insuredAddr = insuredInfo?.querySelector('Addr') ?? null;
   const addr1   = getText(insuredAddr, 'Addr1');
-  const city    = getText(insuredAddr, 'City');
-  const state   = getText(insuredAddr, 'StateProvCd');
   const zip     = getText(insuredAddr, 'PostalCode');
   const address = [addr1].filter(Boolean).join(', ');
 

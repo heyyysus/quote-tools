@@ -7,7 +7,6 @@ import { QuoteLetter } from './components/QuoteLetter';
 import CarModels from "./components/car-models.json";
 import CityList from "./components/USCities.json";
 import { Quote, useIntegrationFilePicker } from './utility/ParseIntegrationFile';
-import { start } from 'repl';
 
 
 
@@ -17,7 +16,7 @@ export const ImportQuoteSelector = ({onImport}: {onImport: (quote: Quote) => voi
   React.useEffect(() => {
     quote && onImport(quote);
     console.log(quote);
-  }, [quote])
+  }, [quote, onImport])
 
   return (
     <>
