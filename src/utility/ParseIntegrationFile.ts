@@ -46,12 +46,6 @@ export interface Quote {
   monthlyInstallments: number;
 }
 
-/** Shape of the JSON envelope wrapping the ACORD XML in a .tt2x file. */
-interface TT2XEnvelope {
-  returncode: number;
-  stdout: string;
-  stderr: string;
-}
 
 /** Marital status code map from ACORD single-letter codes. */
 const MARITAL_STATUS_MAP: Record<string, string> = {
