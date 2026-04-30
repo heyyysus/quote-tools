@@ -36,6 +36,7 @@ function App() {
     "Samuel Rodriguez",
     "Laura Figueroa",
     "Jorge Ramos",
+    "Esmeralda Ayala"
   ];
   const [ effective, set_effective ] = React.useState("");
   const [ ni_name, set_ni_name ] = React.useState("");
