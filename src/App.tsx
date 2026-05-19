@@ -164,6 +164,7 @@ function App() {
     
   };
 
+  const [ quote_type, set_quote_type ] = React.useState("Normal");
   const [ term, set_term ] = React.useState("6 Months");
   const [ dp, set_dp ] = React.useState("");
   const [ mp, set_mp ] = React.useState("");
@@ -258,15 +259,16 @@ function App() {
         </div>
 
         <div className='min-w-[400px] w-1/3 min-h-[200px] p-10 mt-5 border border-black ml-10 rounded-lg'>
+              <FormDropdownMenu label="Quote Type" value={quote_type} values={["Normal", "Simple (Hide Down)"]} onChange={set_quote_type} />
               <FormDropdownMenu label="Term" value={term} values={["6 Months", "12 Months"]} onChange={set_term} />
-              <FormInput label="Down Payment" value={dp} onChange={set_dp} />
+              {quote_type === "Normal" && <FormInput label="Down Payment" value={dp} onChange={set_dp} /> }
               <FormInput label="Monthly Installments" value={mp} onChange={set_mp} />
 
         </div>
 
           <QuoteLetter effective={effective} bi={bi_value} pd={pd_value} med={med_value} umbi={umbi_value} umpd={umpd_value} vehicles={autos} ref={contentRef} 
             ni_name={ni_name} ni_addr={ni_addr} ni_city={ni_city} ni_zip={ni_zip} ni_phone={ni_phone} dp={dp} mp={mp} term={term}
-            drivers={drivers} agent={agent}
+            drivers={drivers} agent={agent} simple_quote={ quote_type !== "Normal" }
           /> 
 
       

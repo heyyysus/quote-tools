@@ -22,9 +22,10 @@ export interface QuoteLetterProps {
     dp?: string;
     mp: string;
     term: string;
+    simple_quote: boolean;
 };
 
-export const QuoteLetter = ({ agent, effective, bi, pd, med, umbi, umpd, vehicles, drivers, ref, ni_name, ni_addr, ni_city, ni_zip, ni_phone, dp, mp, term }: QuoteLetterProps) => {
+export const QuoteLetter = ({ agent, effective, bi, pd, med, umbi, umpd, vehicles, drivers, ref, ni_name, ni_addr, ni_city, ni_zip, ni_phone, dp, mp, term, simple_quote }: QuoteLetterProps) => {
     
     const NUM_PAY = (term === "6 Months") ? 5 : 11;
     
@@ -69,10 +70,19 @@ export const QuoteLetter = ({ agent, effective, bi, pd, med, umbi, umpd, vehicle
                     <h1 className="mt-5"><b className="underline">AGENT:</b> {agent}</h1>
 
                     <h1 className="mt-5"><b className="underline">TERM: </b>{term}</h1>
-                    <h1 className="mt-5"><b className="underline">PAYMENT SCHEDULE:</b></h1>
-                    {dp && <h2><b>Initial Payment:</b> ${dp}</h2>}
-                    {dp && ArrayRange(1, NUM_PAY).map((v) => <h2><b>Installment {v+1}:</b> ${mp}</h2>)}
-                    {!dp && ArrayRange(0, NUM_PAY).map((v) => <h2><b>Installment {v+1}:</b> ${mp}</h2>)}
+                    {
+                        !simple_quote && <>
+                        <h1 className="mt-5"><b className="underline">PAYMENT SCHEDULE:</b></h1>
+                        {dp && <h2><b>Initial Payment:</b> ${dp}</h2>}
+                        {dp && ArrayRange(1, NUM_PAY).map((v) => <h2><b>Installment {v+1}:</b> ${mp}</h2>)}
+                        {!dp && ArrayRange(0, NUM_PAY).map((v) => <h2><b>Installment {v+1}:</b> ${mp}</h2>)}
+                        </>
+                    }
+                    {
+                        simple_quote && <>
+                        {<h2><b>Monthly Installments:</b> ${mp}</h2>}
+                        </>
+                    }
                 </div>
             </div>
         </div>
