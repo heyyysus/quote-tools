@@ -12,6 +12,26 @@ import { Quote, useIntegrationFilePicker } from './utility/ParseIntegrationFile'
 
 export const ImportQuoteSelector = ({onImport}: {onImport: (quote: Quote) => void}) => {
   const { quote, error, loading, handleFile } = useIntegrationFilePicker();
+  const [isDragging, setIsDragging] = React.useState(false);
+
+  const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();         
+    setIsDragging(true);
+  };
+
+  const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+
+    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+      setIsDragging(false);
+    }
+  };
+
+  const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files[0];   
+    handleFile(file);
+  };
 
   React.useEffect(() => {
     quote && onImport(quote);
@@ -19,21 +39,25 @@ export const ImportQuoteSelector = ({onImport}: {onImport: (quote: Quote) => voi
   }, [quote])
 
   return (
-    <>
+    <div 
+      onDragOver={onDragOver}
+      onDragLeave={onDragLeave}
+      onDrop={onDrop}
+      className={`${isDragging ? "bg-gray-500" : "bg-white"} border rounded-md border-gray-400 flex flex-col justify-center text-center p-5 w-max h-[75px]`}
+      >
+
+      <h2 className='w-64 flex justify-center'>Drag ITC File Here...</h2>
+      
       <input
-        className="0"
+        className="hidden"
         type="file"
         accept=".tt2x"
         onChange={(e) => handleFile(e.target.files && e.target.files[0])}
       />
       {loading && <p>Parsing...</p>}
       {error && <p>Error: {error}</p>}
-      {quote && (
-        <>
-          <pre>Successfully Imported</pre>
-        </>
-      )}
-    </>
+      
+    </div>
   );
 }
 
@@ -174,7 +198,7 @@ function App() {
       <div>
         <div className='flex flex-col justify-center items-center min-w-[600px] min-h-[200px] p-10 border border-black mt-10 rounded-lg'>
           
-          <div className="mb-5">
+          <div className="mb-5 w-max">
             <ImportQuoteSelector onImport={ handleImport } />
           </div>
 
